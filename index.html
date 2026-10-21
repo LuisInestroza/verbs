@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verb Game — Formas verbales en inglés</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="app">
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="header">
+      <button type="button" id="theme-toggle" class="theme-toggle" title="Cambiar tema" aria-label="Cambiar tema claro/oscuro">
+        <span class="theme-icon" aria-hidden="true">🌙</span>
+        <span class="theme-label">Tema oscuro</span>
+      </button>
+      <div class="brand">
+        <span class="brand-badge">EN</span>
+        <div>
+          <h1>Verb Game</h1>
+          <p class="subtitle">Base · Past simple · Past participle</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Pantalla de selección de modo -->
+    <section id="mode-screen" class="screen active">
+      <h2 class="section-title">Elige un modo</h2>
+      <div class="mode-buttons">
+        <button type="button" id="mode-one-form" class="mode-btn">
+          <span class="mode-icon-wrap"><span class="mode-icon">1</span></span>
+          <span class="mode-title">Una forma</span>
+          <span class="mode-desc">Un verbo en español y escribes una sola forma al azar.</span>
+          <span class="mode-arrow" aria-hidden="true">→</span>
+        </button>
+        <button type="button" id="mode-three-forms" class="mode-btn">
+          <span class="mode-icon-wrap"><span class="mode-icon">3</span></span>
+          <span class="mode-title">Las 3 formas</span>
+          <span class="mode-desc">Escribe base, past simple y past participle. Los aciertos se bloquean.</span>
+          <span class="mode-arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Modo 1: una forma -->
+    <section id="game-one-form" class="screen">
+      <div class="game-header">
+        <div class="score-pill"><span id="score-one">0</span><span class="score-sep">/</span><span id="total-one">0</span></div>
+        <button type="button" id="back-one" class="btn-back">Menú</button>
+      </div>
+      <div class="question-card card-glow">
+        <p id="question-text-one" class="question-text"></p>
+        <div class="field-wrap">
+          <label for="answer-one">Tu respuesta</label>
+          <div class="input-shell">
+            <input type="text" id="answer-one" class="game-input" autocomplete="off" placeholder="Escribe en inglés…" enterkeyhint="done" aria-describedby="feedback-one">
+            <span class="input-icon" id="icon-one" aria-hidden="true"></span>
+          </div>
+          <p id="feedback-one" role="status" aria-live="polite"></p>
+        </div>
+        <div class="card-actions" id="actions-one">
+          <button type="button" id="show-answer-one" class="btn btn-secondary">No sé — mostrar respuesta</button>
+          <button type="button" id="check-one" class="btn btn-primary">Comprobar</button>
+        </div>
+        <button type="button" id="next-one" class="btn btn-primary btn-next hidden">Siguiente verbo</button>
+      </div>
+    </section>
+
+    <!-- Modo 2: las 3 formas -->
+    <section id="game-three-forms" class="screen">
+      <div class="game-header">
+        <div class="score-pill"><span id="score-three">0</span><span class="score-sep">/</span><span id="total-three">0</span></div>
+        <button type="button" id="back-three" class="btn-back">Menú</button>
+      </div>
+      <div class="question-card card-glow three-forms-card">
+        <p id="question-text-three" class="question-text"></p>
+        <div class="inputs-three">
+          <div class="field-wrap" data-field="base">
+            <label for="answer-base">Base form</label>
+            <div class="input-shell">
+              <input type="text" id="answer-base" class="game-input" autocomplete="off" placeholder="Base form" data-form="base">
+              <span class="input-icon" data-icon-for="answer-base" aria-hidden="true"></span>
+            </div>
+            <p data-feedback-for="answer-base"></p>
+          </div>
+          <div class="field-wrap" data-field="past">
+            <label for="answer-past">Past simple</label>
+            <div class="input-shell">
+              <input type="text" id="answer-past" class="game-input" autocomplete="off" placeholder="Past simple" data-form="past">
+              <span class="input-icon" data-icon-for="answer-past" aria-hidden="true"></span>
+            </div>
+            <p data-feedback-for="answer-past"></p>
+          </div>
+          <div class="field-wrap" data-field="participle">
+            <label for="answer-participle">Past participle</label>
+            <div class="input-shell">
+              <input type="text" id="answer-participle" class="game-input" autocomplete="off" placeholder="Past participle" data-form="participle">
+              <span class="input-icon" data-icon-for="answer-participle" aria-hidden="true"></span>
+            </div>
+            <p data-feedback-for="answer-participle"></p>
+          </div>
+        </div>
+        <div class="card-actions" id="actions-three">
+          <button type="button" id="show-answer-three" class="btn btn-secondary">No sé — mostrar respuesta</button>
+          <button type="button" id="check-three" class="btn btn-primary">Comprobar</button>
+        </div>
+        <button type="button" id="next-three" class="btn btn-primary btn-next hidden">Siguiente verbo</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Fin de juego (sin SweetAlert) -->
+  <div id="end-overlay" class="end-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="end-title">
+    <div class="end-card">
+      <p class="end-emoji" aria-hidden="true">🎯</p>
+      <h2 id="end-title" class="end-title">¡Juego terminado!</h2>
+      <p id="end-score" class="end-score"></p>
+      <button type="button" id="end-to-menu" class="btn btn-primary">Volver al menú</button>
+    </div>
+  </div>
+
+  <script src="js/verbs.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
